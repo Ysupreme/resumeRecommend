@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ysupreme.resume.mapper.ResumeMapper">
+    <select id="selectPage"
+            resultType = "com.ysupreme.resume.entity.Resume">
+        select * from resume
+        <where>
+            <if test="userid != null">
+                userId = #{userid}
+            </if>
+            <if test="expectcity != null">
+                expectCity = #{expectcity}
+            </if>
+            <if test="experience != null and experience!='0'">
+                and experience >= #{experience}
+            </if>
+            <if test="educationlevel != null and educationlevel!='0'">
+                and educationLevel >= #{educationlevel}
+            </if>
+        </where>
+        limit #{pageNum}, #{pageSize}
+    </select>
+
+    <select id="selectTotal" resultType="Integer">
+        select count(*) from resume
+        <where>
+            <if test="userid != null">
+                userId = #{userid}
+            </if>
+            <if test="expectcity != null">
+                expectCity = #{expectcity}
+            </if>
+<!--&#45;&#45;             <if test="experience != null">-->
+            <if test="experience != null and experience!='0'">
+                and experience = #{experience}
+            </if>
+            <if test="educationlevel != null and educationlevel!='0'">
+                and educationLevel >= #{educationlevel}
+            </if>
+        </where>
+    </select>
+
+</mapper>

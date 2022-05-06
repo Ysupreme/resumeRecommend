@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ysupreme.resume.mapper.JobMapper">
+    <select id="selectPage"
+            resultType = "com.ysupreme.resume.entity.Job">
+        select * from job
+        <where>
+            <if test="city != null">
+                city = #{city}
+            </if>
+            <if test="experience != null">
+                and experience = #{experience}
+            </if>
+            <if test="educationlevel != null">
+                and educationLevel = #{educationlevel}
+            </if>
+        </where>
+            limit #{pageNum}, #{pageSize}
+    </select>
+
+    <select id="selectTotal" resultType="Integer">
+        select count(*) from job
+        <where>
+            <if test="city != null">
+                city = #{city}
+            </if>
+            <if test="experience != null">
+                and experience = #{experience}
+            </if>
+            <if test="educationlevel != null">
+                and educationLevel = #{educationlevel}
+            </if>
+        </where>
+    </select>
+
+</mapper>
